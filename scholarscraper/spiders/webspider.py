@@ -14,20 +14,12 @@ class WebSpider(scrapy.Spider):
             'https://scholar.google.com/',
         ]
         for url in urls:
-            print("xxxxxxxxxxxxxxxxxxxxxxx")
             yield scrapy.Request(url=url, callback=self.parse)
+
     def parse(self, response):
-        request = scrapy.FormRequest.from_response(
-            response,
-            formxpath="//form[@id='gs_hdr_frm']",
-	    formdata={
-		'gs_hdr_tsi':'G. Brewka'
-		},
-            callback=self.parse_caseStatus
-        )
-        print(request.body)
-        yield request
+
+        yield scrapy.FormRequest.from_response(response,formdata={'q':'G. Brewka'},callback=self.parse_caseStatus)
 
     def parse_caseStatus(self,response):
-        print("---------------------------------------")
+        print("-----------------------------------------------------------")
         print(response)
