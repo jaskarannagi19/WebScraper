@@ -15,9 +15,10 @@ class WebSpider(scrapy.Spider):
         yield scrapy.FormRequest.from_response(response,formxpath="//form[@id='gs_hdr_frm']",formdata={'q':'G. Brewka'},callback=self.parse_caseStatus)
 
     def parse_caseStatus(self,response):
-        print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         author_url = response.xpath('//h4[@class="gs_rt2"]/a/@href').get()
-        print(response.xpath('//h4[@class="gs_rt2"]/a/@href').get())
+        #print(response.xpath('//h4[@class="gs_rt2"]/a/@href').get())
         yield Request(url=self.BASE_URL+author_url, callback=self.author_profile)
-
+    def author_profile(self,response):
+        print(response.xpath('//td[@class="gsc_rsb_sc1"]/text()').get())
+        print("--------------------------------------------------------------")
 
