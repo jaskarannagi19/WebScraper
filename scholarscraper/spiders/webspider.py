@@ -19,6 +19,6 @@ class WebSpider(scrapy.Spider):
         #print(response.xpath('//h4[@class="gs_rt2"]/a/@href').get())
         yield Request(url=self.BASE_URL+author_url, callback=self.author_profile)
     def author_profile(self,response):
-        print(response.xpath('//td[@class="gsc_rsb_sc1"]/text()').get())
-        print("--------------------------------------------------------------")
+        #print(response.xpath('//table[@id="gsc_rsb_st"]//tr[2]//td[2]/text()').get())
+        return response.xpath('//table[@id="gsc_rsb_st"]//tr[2]//td[2]/text()').get()
 
