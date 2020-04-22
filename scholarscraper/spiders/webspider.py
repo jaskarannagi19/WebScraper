@@ -8,18 +8,10 @@ import scrapy
 
 class WebSpider(scrapy.Spider):
     name = "web"
-
-    def start_requests(self):
-        urls = [
-            'https://scholar.google.com/',
-        ]
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+    start_urls = ['https://scholar.google.com/']
 
     def parse(self, response):
-
-        yield scrapy.FormRequest.from_response(response,formdata={'q':'G. Brewka'},callback=self.parse_caseStatus)
+        yield scrapy.FormRequest.from_response(response,formxpath="//form[@id='gs_hdr_frm']",formdata={'q':'G. Brewka'},callback=self.parse_caseStatus)
 
     def parse_caseStatus(self,response):
-        print("-----------------------------------------------------------")
-        print(response)
+        print(response.text)
